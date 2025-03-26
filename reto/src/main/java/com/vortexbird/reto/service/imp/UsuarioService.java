@@ -49,7 +49,8 @@ public class UsuarioService implements IUsuarioService {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST,
                     "El usuario debe pertenecer al dominio corecto");
         }
-
+        usuarioCrear.setTelefono(usuario.getTelefono());
+        usuarioCrear.setActivo(usuario.isActivo());
         usuarioCrear.setNombres(usuario.getNombres());
         usuarioCrear.setApellidos(usuario.getApellidos());
         usuarioCrear.setClave(passwordCifrado);
@@ -75,7 +76,6 @@ public class UsuarioService implements IUsuarioService {
     @Override
     public Usuario actualizarUsuario(Usuario usuario) {
         log.info(Constants.MSN_INICIO_LOG_INFO + classLog + "actualizarUsuario");
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         Optional<Usuario> usuarioExite = usuarioRepository.findById(usuario.getIdUsuario());
         if (usuarioExite.isPresent()) {
             if (!Validation.isNullOrEmpty(
@@ -88,11 +88,12 @@ public class UsuarioService implements IUsuarioService {
         }else{
             usuarioExite.get().setRol(Constants.USER_ROLE);
         }
-        String passwordCifrado = passwordEncoder.encode(usuario.getClave());
+
+        usuarioExite.get().setTelefono(usuario.getTelefono());
+        usuarioExite.get().setActivo(usuario.isActivo());
         usuarioExite.get().setNombres(usuario.getNombres());
         usuarioExite.get().setApellidos(usuario.getApellidos());
         usuarioExite.get().setUsuario(usuario.getUsuario());
-        usuarioExite.get().setClave(passwordCifrado);
 
         Usuario usuarioCreado = usuarioRepository.save(usuarioExite.get());
 

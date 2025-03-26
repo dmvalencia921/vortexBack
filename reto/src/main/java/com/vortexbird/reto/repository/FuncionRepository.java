@@ -13,10 +13,10 @@ import java.util.Optional;
 @Repository
 public interface FuncionRepository extends JpaRepository<Funcion, Integer> {
 
-    Funcion findByPeliculaAndHoraInicio(Pelicula pelicula, String horaInicio);
+    Funcion findByPeliculaAndHoras(Pelicula pelicula, String horas);
 
     Funcion findOneByPeliculaAndIdFuncionNot(Pelicula pelicula, Integer idFuncion);
 
     @Query("SELECT f FROM Funcion f WHERE f.pelicula.idPelicula = :idPelicula")
-    List<Funcion> findAllByPeliculaId(Integer idPelicula);
+    Funcion findAllByPeliculaId(Integer idPelicula);
 }

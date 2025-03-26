@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import lombok.Data;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,12 +26,8 @@ public class Funcion {
     private Date fecha;
 
     @Column(nullable = false)
-    @NotEmpty(message = "La hora inicio no puede ser  nula")
-    private String horaInicio;
-
-    @Column(nullable = false)
-    @NotEmpty(message = "La hora fin no puede ser nula")
-    private String horaFin;
+    @NotEmpty(message = "La hora  no puede ser  nula")
+    private String horas;
 
     @Column(nullable = false)
     private Double precio;

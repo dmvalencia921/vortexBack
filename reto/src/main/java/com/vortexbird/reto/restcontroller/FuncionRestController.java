@@ -30,7 +30,7 @@ public class FuncionRestController {
         return  ResponseEntity.ok(funcionService.actualizarFuncion(funcion));
     }
 
-    @GetMapping("/listarFuncioes")
+    @GetMapping("/listarFunciones")
     @Operation(summary = "Listar funciones", description = "Metodo que permite listar todas las funciones")
     public  ResponseEntity<List<Funcion>> listarFunciones () {
         return  ResponseEntity.ok(funcionService.listarFunciones());
@@ -38,7 +38,7 @@ public class FuncionRestController {
 
     @GetMapping("/buscarPorpelicula/{idPelicula}")
     @Operation(summary = "Buscar por el id de la pelicula" , description = "Metodo que permite buscar la funcion por el id de la pelicula")
-    public ResponseEntity<List<Funcion>> buscarFuncionesPorPelicula(@PathVariable  Integer idPelicula) {
+    public ResponseEntity<Funcion> buscarFuncionesPorPelicula(@PathVariable  Integer idPelicula) {
         return ResponseEntity.ok(funcionService.buscarFuncionesPorPelicula(idPelicula));
     }
 

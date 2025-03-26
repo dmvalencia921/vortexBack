@@ -26,12 +26,20 @@ public class Usuario {
     private String apellidos;
 
     @Column(nullable = false)
+    @NotEmpty(message = "El telefon no puede ser nulo")
+    private String telefono;
+
+
+    @Column(nullable = false)
     @NotEmpty(message = "El usuario no puede ser nulo")
     private String usuario;
 
     @Column(nullable = false)
     @NotEmpty(message = "La contasena  no puede ser nulo")
     private String clave;
+
+    @Column(columnDefinition = "boolean default true", nullable = false)
+    private boolean activo = true;
 
     @Column(nullable = false)
     @NotEmpty(message = "El rol  no puede ser nulo")

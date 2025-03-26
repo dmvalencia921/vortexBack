@@ -28,11 +28,10 @@ public class FuncionService implements IFuncionService {
     @Override
     public Funcion crearFuncion(Funcion funcion) {
         log.info(Constants.MSN_INICIO_LOG_INFO+classLog+"crearFuncion");
-        if(Validation.isNullOrEmpty(funcionRepository.findByPeliculaAndHoraInicio(funcion.getPelicula(), funcion.getHoraInicio()))){
+        if(Validation.isNullOrEmpty(funcionRepository.findByPeliculaAndHoras(funcion.getPelicula(), funcion.getHoras()))){
             funcion.setSala(funcion.getSala());
             funcion.setFecha(funcion.getFecha());
-            funcion.setHoraInicio(funcion.getHoraInicio());
-            funcion.setHoraFin(funcion.getHoraFin());
+            funcion.setHoras(funcion.getHoras());
             funcion.setPrecio(funcion.getPrecio());
             funcion.setPelicula(funcion.getPelicula());
             Funcion newFuncion = funcionRepository.save(funcion);
@@ -56,8 +55,7 @@ public class FuncionService implements IFuncionService {
             if(Validation.isNullOrEmpty(funcionRepository.findOneByPeliculaAndIdFuncionNot(funcion.getPelicula(),funcion.getIdFuncion()))){
                 funcion.setSala(funcion.getSala());
                 funcion.setFecha(funcion.getFecha());
-                funcion.setHoraInicio(funcion.getHoraInicio());
-                funcion.setHoraFin(funcion.getHoraFin());
+                funcion.setHoras(funcion.getHoras());
                 funcion.setPrecio(funcion.getPrecio());
                 funcion.setPelicula(funcion.getPelicula());
                 funcionRepository.save(funcion);
@@ -77,13 +75,13 @@ public class FuncionService implements IFuncionService {
         if (!Validation.isNullOrEmpty(listaFuncion)) {
             return listaFuncion;
         }
-        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lista de facultades esta vacia");
+        throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Lista de funciones esta vacia");
     }
 
     @Override
-    public List<Funcion> buscarFuncionesPorPelicula(Integer idPelicula) {
-        List<Funcion> funciones = funcionRepository.findAllByPeliculaId(idPelicula);
-        if (funciones.isEmpty()) {
+    public Funcion buscarFuncionesPorPelicula(Integer idPelicula) {
+        Funcion funciones = funcionRepository.findAllByPeliculaId(idPelicula);
+        if (Validation.isNullOrEmpty(funciones)) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "No se encontraron funciones para la película con ID: " + idPelicula);
         }
         return funciones;
